@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080b0d">
+  <title>Project Ibiza</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #050708;
+      --panel: #0b1013;
+      --panel2: #10161a;
+      --border: #1d272c;
+      --green: #7cff00;
+      --green2: #3eb800;
+      --purple: #a855f7;
+      --blue: #36a9ff;
+      --red: #ff4d5a;
+      --orange: #ffb020;
+      --text: #f3f6f7;
+      --muted: #7f8b91;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at 80% 0%, rgba(80,120,140,.12), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .app {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* SIDEBAR */
+
+    .sidebar {
+      width: 210px;
+      background: #080b0d;
+      border-right: 1px solid var(--border);
+      padding: 24px 16px;
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 10;
+    }
+
+    .brand-small {
+      border: 1px solid #202b30;
+      background: #0d1215;
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    .brand-small h2 {
+      font-size: 18px;
+      letter-spacing: 1px;
+    }
+
+    .brand-small span {
+      color: var(--green);
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .nav button {
+      background: transparent;
+      border: 0;
+      color: #9ca6aa;
+      padding: 11px 10px;
+      text-align: left;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .nav button:hover,
+    .nav button.active {
+      background: #12191d;
+      color: var(--green);
+    }
+
+    .side-quote {
+      position: absolute;
+      bottom: 25px;
+      left: 18px;
+      right: 18px;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+      color: #68747a;
+      font-size: 11px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .side-quote strong {
+      display: block;
+      color: var(--green);
+      margin-bottom: 8px;
+    }
+
+    /* MAIN */
+
+    .main {
+      margin-left: 210px;
+      width: calc(100% - 210px);
+      padding: 28px;
+      max-width: 1500px;
+    }
+
+    .hero {
+      min-height: 155px;
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(90deg, rgba(10,14,16,.98) 0%, rgba(10,14,16,.88) 45%, rgba(10,14,16,.45) 100%),
+        radial-gradient(ellipse at 85% 45%, #26343a 0%, #10171a 28%, #090c0e 65%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 30px;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 4vw, 48px);
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+
+    .hero h1 span {
+      color: var(--green);
+    }
+
+    .hero p {
+      color: #a5afb3;
+      font-size: 14px;
+    }
+
+    .hero-car {
+      font-size: 95px;
+      filter: grayscale(1);
+      opacity: .65;
+      transform: skewX(-8deg);
+      margin-right: 45px;
+    }
+
+    .top-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .card {
+      background: linear-gradient(145deg, #0d1316, #090e10);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 17px;
+      min-height: 112px;
+      box-shadow: 0 8px 25px rgba(0,0,0,.15);
+    }
+
+    .card-title {
+      color: #879298;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      margin-bottom: 12px;
+    }
+
+    .big-number {
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .green {
+      color: var(--green);
+    }
+
+    .blue {
+      color: var(--blue);
+    }
+
+    .orange {
+      color: var(--orange);
+    }
+
+    .red {
+      color: var(--red);
+    }
+
+    .small-note {
+      color: #657176;
+      font-size: 10px;
+      margin-top: 7px;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .panel {
+      background: linear-gradient(145deg, #0c1215, #080d0f);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 20px;
+    }
+
+    .panel-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      margin-bottom: 18px;
+      color: var(--green);
+    }
+
+    .progress-area {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .progress-text {
+      flex: 1;
+    }
+
+    .progress-text .percent {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 8px;
+    }
+
+    .progress-text p {
+      color: #7f8b91;
+      font-size: 12px;
+    }
+
+    .progress-track {
+      height: 9px;
+      background: #192125;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-top: 16px;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--green2), var(--green));
+      transition: width .4s ease;
+    }
+
+    .ring {
+      width: 125px;
+      height: 125px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: conic-gradient(var(--green) 0deg, #202a2e 0deg);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .ring::after {
+      content: "";
+      position: absolute;
+      width: 95px;
+      height: 95px;
+      background: #0b1013;
+      border-radius: 50%;
+    }
+
+    .ring span {
+      position: relative;
+      z-index: 1;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .overview-row {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #182125;
+      padding: 11px 0;
+      font-size: 12px;
+    }
+
+    .overview-row:last-child {
+      border-bottom: 0;
+    }
+
+    .overview-row span:first-child {
+      color: #818d92;
+    }
+
+    .overview-row span:last-child {
+      color: var(--text);
+      font-weight: bold;
+    }
+
+    .money-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .purple-title {
+      color: var(--purple);
+    }
+
+    .money-row,
+    .withdraw-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 9px 0;
+      border-bottom: 1px solid #182125;
+      font-size: 12px;
+    }
+
+    .money-row:last-child,
+    .withdraw-row:last-child {
+      border-bottom: 0;
+    }
+
+    .input {
+      width: 100%;
+      background: #080d0f;
+      color: white;
+      border: 1px solid #263238;
+      border-radius: 6px;
+      padding: 11px;
+      margin-top: 8px;
+      outline: none;
+    }
+
+    .input:focus {
+      border-color: var(--green);
+    }
+
+    .button {
+      border: 0;
+      border-radius: 6px;
+      padding: 11px 16px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 10px;
+      background: var(--green);
+      color: #071000;
+    }
+
+    .button:hover {
+      filter: brightness(1.08);
+    }
+
+    .button.red-button {
+      background: var(--red);
+      color: white;
+    }
+
+    .chart {
+      height: 220px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart-grid {
+      position: absolute;
+      inset: 20px 0 30px;
+      background-image:
+        linear-gradient(#162025 1px, transparent 1px),
+        linear-gradient(90deg, #162025 1px, transparent 1px);
+      background-size: 20% 25%;
+    }
+
+    .chart-line {
+      position: absolute;
+      left: 4%;
+      right: 3%;
+      bottom: 30px;
+      height: 150px;
+    }
+
+    .chart-line svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .log-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+
+    .log-table th {
+      color: #778389;
+      text-align: left;
+      font-weight: normal;
+      border-bottom: 1px solid #253036;
+      padding: 9px;
+    }
+
+    .log-table td {
+      color: #c4cccf;
+      border-bottom: 1px solid #151e22;
+      padding: 10px 9px;
+    }
+
+    .add-entry {
+      text-align: center;
+      margin-top: 14px;
+    }
+
+    .footer {
+      text-align: center;
+      color: #536066;
+      font-size: 10px;
+      padding: 18px;
+    }
+
+    /* MODAL */
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.75);
+      z-index: 100;
+      place-items: center;
+      padding: 20px;
+    }
+
+    .modal.show {
+      display: grid;
+    }
+
+    .modal-box {
+      width: min(430px, 100%);
+      background: #0c1215;
+      border: 1px solid #263238;
+      border-radius: 12px;
+      padding: 22px;
+    }
+
+    .modal-box h2 {
+      margin-bottom: 16px;
+    }
+
+    .modal-close {
+      float: right;
+      background: none;
+      border: 0;
+      color: #89949a;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 900px) {
+      .sidebar {
+        width: 68px;
+        padding: 15px 8px;
+      }
+
+      .brand-small h2 {
+        font-size: 11px;
+      }
+
+      .nav button {
+        font-size: 0;
+        text-align: center;
+      }
+
+      .nav button::first-letter {
+        font-size: 18px;
+      }
+
+      .side-quote {
+        display: none;
+      }
+
+      .main {
+        margin-left: 68px;
+        width: calc(100% - 68px);
+        padding: 14px;
+      }
+
+      .top-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .content-grid,
+      .money-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-car {
+        font-size: 50px;
+        margin-right: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .main {
+        margin-left: 0;
+        width: 100%;
+        padding: 10px;
+        padding-bottom: 70px;
+      }
+
+      .sidebar {
+        top: auto;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 58px;
+        padding: 5px;
+        border-right: 0;
+        border-top: 1px solid var(--border);
+      }
+
+      .brand-small,
+      .side-quote {
+        display: none;
+      }
+
+      .nav {
+        flex-direction: row;
+        justify-content: space-around;
+      }
+
+      .nav button {
+        padding: 10px 7px;
+        font-size: 0;
+      }
+
+      .nav button::first-letter {
+        font-size: 18px;
+      }
+
+      .hero {
+        min-height: 130px;
+        padding: 20px;
+      }
+
+      .hero h1 {
+        font-size: 26px;
+      }
+
+      .hero-car {
+        font-size: 45px;
+      }
+
+      .top-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 7px;
+      }
+
+      .card {
+        min-height: 95px;
+        padding: 12px;
+      }
+
+      .big-number {
+        font-size: 20px;
+      }
+
+      .progress-area {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .ring {
+        margin: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand-small">
+      <h2>PROJECT<br><span>IBIZA</span></h2>
+    </div>
+
+    <nav class="nav">
+      <button class="active">🏠 Dashboard</button>
+      <button>📋 Savings Log</button>
+      <button>💸 Withdrawals</button>
+      <button>💰 Extra Money</button>
+      <button>📈 Charts</button>
+      <button>🎯 Goals</button>
+      <button>⚙️ Settings</button>
+    </nav>
+
+    <div class="side-quote">
+      <strong>PROJECT IBIZA</strong>
+      Stay focused. Stay consistent.<br>
+      Make it happen.
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <h1>PROJECT <span>IBIZA</span></h1>
+        <p>🏁 Your road to £5,000</p>
+      </div>
+
+      <div class="hero-car">🚗</div>
+    </section>
+
+    <!-- TOP CARDS -->
+    <section class="top-grid">
+
+      <div class="card">
+        <div class="card-title">Current Savings 💰</div>
+        <div class="big-number green" id="currentSavings">£0</div>
+        <div class="small-note">Last updated today</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Target 🎯</div>
+        <div class="big-number blue">£5,000</div>
+        <div class="small-note">Goal amount</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Remaining 🔒</div>
+        <div class="big-number orange" id="remaining">£5,000</div>
+        <div class="small-note">Left to reach target</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Progress 📈</div>
+        <div class="big-number green" id="topProgress">0%</div>
+        <div class="progress-track">
+          <div class="progress-fill" id="topProgressBar"></div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- PROGRESS + OVERVIEW -->
+    <section class="content-grid">
+
+      <div class="panel">
+        <div class="panel-title">Savings Progress</div>
+
+        <div class="progress-area">
+
+          <div class="progress-text">
+            <div class="percent" id="mainProgress">0%</div>
+            <p>You're 0% of the way to your target!</p>
+
+            <div class="progress-track">
+              <div class="progress-fill" id="mainProgressBar"></div>
+            </div>
+
+            <p style="margin-top:15px;color:#637077;">
+              Keep going, every £1 gets you closer!
+            </p>
+          </div>
+
+          <div class="ring" id="progressRing">
+            <span id="ringText">0%</span>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title" style="color:var(--blue);">
+          Target Overview
+        </div>
+
+        <div class="overview-row">
+          <span>Weekly Target</span>
+          <span>£100</span>
+        </div>
+
+        <div class="overview-row">
+          <span>Target Date</span>
+          <span>31 May 2027</span>
+        </div>
+
+        <div class="overview-row">
+          <span>Days Remaining</span>
+          <span id="daysRemaining">—</span>
+        </div>
+
+        <div class="overview-row">
+          <span>Projected Savings</span>
+          <span class="green">£5,100</span>
+        </div>
+
+        <div class="small-note">
+          Includes £1,000 Trust Fund + other extra money
+        </div>
+      </div>
+
+    </section>
+
+    <!-- EXTRA MONEY + WITHDRAWALS -->
+    <section class="money-grid">
+
+      <div class="panel">
+        <div class="panel-title purple-title">Extra Money 🎁</div>
+
+        <div class="money-row">
+          <span>Trust Fund</span>
+          <strong class="purple-title">£1,000</strong>
+        </div>
+
+        <div class="money-row">
+          <span>Birthday Money</span>
+          <strong>£0</strong>
+        </div>
+
+        <div class="money-row">
+          <span>Christmas Money</span>
+          <strong>£0</strong>
+        </div>
+
+        <div class="money-row">
+          <strong>Total Extra</strong>
+          <strong class="purple-title">£1,000</strong>
+        </div>
+
+      </div>
+
+      <div class="panel">
+        <div class="panel-title" style="color:var(--red);">
+          Withdrawals 💸
+        </div>
+
+        <div class="withdraw-row">
+          <span>Total Withdrawn</span>
+          <strong class="red" id="totalWithdrawn">£0</strong>
+        </div>
+
+        <p class="small-note">
+          Withdrawals are deducted from your savings.
+          Use only when necessary.
+        </p>
+
+        <button class="button red-button" onclick="openWithdrawal()">
+          Add Withdrawal
+        </button>
+      </div>
+
+    </section>
+
+    <!-- SAVINGS ENTRY -->
+    <section class="panel" style="margin-bottom:12px;">
+      <div class="panel-title">Add Savings</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+
+        <div>
+          <label class="small-note">Amount</label>
+          <input
+            class="input"
+            id="savingAmount"
+            type="number"
+            min="0"
+            step="0.01"
+            placeholder="£100"
+          >
+        </div>
+
+        <div>
+          <label class="small-note">Note</label>
+          <input
+            class="input"
+            id="savingNote"
+            type="text"
+            placeholder="Weekly savings"
+          >
+        </div>
+
+      </div>
+
+      <button class="button" onclick="addSaving()">
+        + Add Savings
+      </button>
+    </section>
+
+    <!-- CHART -->
+    <section class="panel" style="margin-bottom:12px;">
+      <div class="panel-title">Savings Over Time</div>
+
+      <div class="chart">
+        <div class="chart-grid"></div>
+
+        <div class="chart-line">
+          <svg viewBox="0 0 1000 150" preserveAspectRatio="none">
+            <polyline
+              id="chartLine"
+              fill="none"
+              stroke="#7cff00"
+              stroke-width="3"
+              points="0,145 200,145 400,145 600,145 800,145 1000,145"
+            />
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- SAVINGS LOG -->
+    <section class="panel">
+      <div class="panel-title">Savings Log</div>
+
+      <table class="log-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Week</th>
+            <th>Saved</th>
+            <th>Total Saved</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+
+        <tbody id="logBody">
+          <tr>
+            <td colspan="5" style="text-align:center;color:#566268;">
+              No savings recorded yet
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="add-entry">
+        <button class="button" onclick="document.getElementById('savingAmount').focus()">
+          + Add New Entry
+        </button>
+      </div>
+    </section>
+
+    <div class="footer">
+      Consistency is the key to success. Let's get that Ibiza! 🚗💨
+    </div>
+
+  </main>
+</div>
+
+<!-- WITHDRAWAL MODAL -->
+<div class="modal" id="withdrawalModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeWithdrawal()">×</button>
+
+    <h2>Add Withdrawal</h2>
+
+    <label class="small-note">Amount</label>
+    <input
+      class="input"
+      id="withdrawAmount"
+      type="number"
+      min="0"
+      step="0.01"
+      placeholder="£50"
+    >
+
+    <label class="small-note">Reason</label>
+    <input
+      class="input"
+      id="withdrawNote"
+      type="text"
+      placeholder="Emergency / necessary spending"
+    >
+
+    <button class="button red-button" onclick="addWithdrawal()">
+      Record Withdrawal
+    </button>
+  </div>
+</div>
+
+<script>
+  const TARGET = 5000;
+  const WEEKLY_TARGET = 100;
+
+  let savings = JSON.parse(localStorage.getItem("ibizaSavings")) || [];
+  let withdrawals = JSON.parse(localStorage.getItem("ibizaWithdrawals")) || [];
+
+  function money(value) {
+    return "£" + Number(value).toLocaleString("en-GB", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2
+    });
+  }
+
+  function getTotalSaved() {
+    return savings.reduce((total, entry) => total + Number(entry.amount), 0);
+  }
+
+  function getTotalWithdrawn() {
+    return withdrawals.reduce((total, entry) => total + Number(entry.amount), 0);
+  }
+
+  function getCurrentSavings() {
+    return Math.max(0, getTotalSaved() - getTotalWithdrawn());
+  }
+
+  function updateDashboard() {
+    const saved = getCurrentSavings();
+    const withdrawn = getTotalWithdrawn();
+
+    const progress = Math.min((saved / TARGET) * 100, 100);
+    const remaining = Math.max(TARGET - saved, 0);
+
+    document.getElementById("currentSavings").textContent = money(saved);
+    document.getElementById("remaining").textContent = money(remaining);
+    document.getElementById("topProgress").textContent = progress.toFixed(0) + "%";
+    document.getElementById("mainProgress").textContent = progress.toFixed(0) + "%";
+    document.getElementById("ringText").textContent = progress.toFixed(0) + "%";
+    document.getElementById("totalWithdrawn").textContent = money(withdrawn);
+
+    document.getElementById("topProgressBar").style.width = progress + "%";
+    document.getElementById("mainProgressBar").style.width = progress + "%";
+
+    const degrees = progress * 3.6;
+    document.getElementById("progressRing").style.background =
+      `conic-gradient(#7cff00 ${degrees}deg, #202a2e ${degrees}deg)`;
+
+    const days = Math.max(
+      Math.ceil(
+        (new Date("2027-05-31") - new Date()) /
+        (1000 * 60 * 60 * 24)
+      ),
+      0
+    );
+
+    document.getElementById("daysRemaining").textContent = days + " days";
+
+    updateLog();
+    updateChart();
+  }
+
+  function addSaving() {
+    const amount = Number(document.getElementById("savingAmount").value);
+    const note = document.getElementById("savingNote").value.trim();
+
+    if (!amount || amount <= 0) {
+      alert("Enter a saving amount first.");
+      return;
+    }
+
+    savings.push({
+      amount,
+      note,
+      date: new Date().toLocaleDateString("en-GB")
+    });
+
+    localStorage.setItem("ibizaSavings", JSON.stringify(savings));
+
+    document.getElementById("savingAmount").value = "";
+    document.getElementById("savingNote").value = "";
+
+    updateDashboard();
+  }
+
+  function updateLog() {
+    const body = document.getElementById("logBody");
+
+    if (savings.length === 0) {
+      body.innerHTML = `
+        <tr>
+          <td colspan="5" style="text-align:center;color:#566268;">
+            No savings recorded yet
+          </td>
+        </tr>
+      `;
+      return;
+    }
+
+    let runningTotal = 0;
+
+    body.innerHTML = savings
+      .map((entry, index) => {
+        runningTotal += Number(entry.amount);
+
+        return `
+          <tr>
+            <td>${entry.date}</td>
+            <td>Week ${index + 1}</td>
+            <td class="green">${money(entry.amount)}</td>
+            <td>${money(runningTotal)}</td>
+            <td>${entry.note || "—"}</td>
+          </tr>
+        `;
+      })
+      .reverse()
+      .join("");
+  }
+
+  function updateChart() {
+    const line = document.getElementById("chartLine");
+
+    if (savings.length === 0) {
+      line.setAttribute(
+        "points",
+        "0,145 200,145 400,145 600,145 800,145 1000,145"
+      );
+      return;
+    }
+
+    let running = 0;
+
+    const points = savings.map((entry, index) => {
+      running += Number(entry.amount);
+
+      const x = (index / Math.max(savings.length - 1, 1)) * 1000;
+      const percentage = Math.min(running / TARGET, 1);
+      const y = 145 - percentage * 130;
+
+      return `${x},${y}`;
+    });
+
+    line.setAttribute("points", points.join(" "));
+  }
+
+  function openWithdrawal() {
+    document.getElementById("withdrawalModal").classList.add("show");
+  }
+
+  function closeWithdrawal() {
+    document.getElementById("withdrawalModal").classList.remove("show");
+  }
+
+  function addWithdrawal() {
+    const amount = Number(document.getElementById("withdrawAmount").value);
+    const note = document.getElementById("withdrawNote").value.trim();
+
+    if (!amount || amount <= 0) {
+      alert("Enter a withdrawal amount first.");
+      return;
+    }
+
+    if (amount > getCurrentSavings()) {
+      alert("You cannot withdraw more than your current savings.");
+      return;
+    }
+
+    withdrawals.push({
+      amount,
+      note,
+      date: new Date().toLocaleDateString("en-GB")
+    });
+
+    localStorage.setItem(
+      "ibizaWithdrawals",
+      JSON.stringify(withdrawals)
+    );
+
+    document.getElementById("withdrawAmount").value = "";
+    document.getElementById("withdrawNote").value = "";
+
+    closeWithdrawal();
+    updateDashboard();
+  }
+
+  updateDashboard();
+</script>
+
+</body>
+</html>
