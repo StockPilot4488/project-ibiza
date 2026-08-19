@@ -213,10 +213,22 @@
 }
 
 .hero-car {
-  font-size: 100px;
-  filter: grayscale(1);
-  opacity: .7;
-  transform: skewX(-8deg);
+  width: 330px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 12px 25px rgba(0,0,0,.65));
+  object-fit: contain;
+  transform: translateX(10px);
+  opacity: .95;
+}
+    .hero-car-image {
+  width: 330px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 15px 25px rgba(0,0,0,.7));
+  transform: translateX(10px);
 }
 
 .hero-road {
@@ -742,7 +754,7 @@
   </div>
 
   <div class="hero-car-wrap">
-    <div class="hero-car">🚗</div>
+    <img class="hero-car-image" src="ibiza-fr.png" alt="Black Project Ibiza FR">
     <div class="hero-road"></div>
   </div>
 </section>
