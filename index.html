@@ -917,7 +917,7 @@
       <div class="big-progress" id="mainProgress">0%</div>
 
       <div class="progress-message">
-        You're 0% of the way to your target!
+       You're <span id="progressMessage">0%</span> of the way to your target!
       </div>
 
       <div class="progress-track">
@@ -1212,6 +1212,7 @@
 
     document.getElementById("topProgressBar").style.width = progress + "%";
     document.getElementById("mainProgressBar").style.width = progress + "%";
+    document.getElementById("progressMessage").textContent = progress.toFixed(0) + "%";
 
     const degrees = progress * 3.6;
     document.getElementById("progressRing").style.background =
